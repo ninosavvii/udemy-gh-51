@@ -1,0 +1,8 @@
+name: Issues action
+on: [issues, workflow_dispatch]
+jobs:
+  print-context:
+    runs-on: ubuntu-latest
+    steps: 
+      - name: Context dump
+        run: echo "${{ github }}"
