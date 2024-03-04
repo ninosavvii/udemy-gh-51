@@ -1,0 +1,38 @@
+name: First action
+on: [push, workflow_dispatch]
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+      - name: Install nodejs
+        uses: actions/setup-node@v4
+      - name: Install NPM packages
+        run: npm ci
+      - name: Lint
+        run: npm run lint
+  test:
+    runs-on: ubuntu-latest
+    needs: lint
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+      - name: Install nodejs
+        uses: actions/setup-node@v4
+      - name: Install NPM packages
+        run: npm ci
+      - name: Test
+        run: npm run test
+  deploy:
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+      - name: Install nodejs
+        uses: actions/setup-node@v4
+      - name: Install NPM packages
+        run: npm ci
+      - name: Deploy
+        run: echo "Deploying..."
